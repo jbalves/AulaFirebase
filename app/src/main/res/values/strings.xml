@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AulaFirebase</string>
+    <string-array name="planets_array">
+        <item>Aplicativos</item>
+        <item>Banco de dados</item>
+        <item>Desenvolvimento pessoal</item>
+        <item>Eletrônica</item>
+        <item>Finanças</item>
+        <item>Internet</item>
+        <item>Jogos</item>
+        <item>Marketing</item>
+    </string-array>
+</resources>

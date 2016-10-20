@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "24456658644",
+    "firebase_url": "https://aula-firebase.firebaseio.com",
+    "project_id": "aula-firebase",
+    "storage_bucket": "aula-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24456658644:android:2c53489a167ac6ca",
+        "android_client_info": {
+          "package_name": "barros.jeferson.aulafirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24456658644-4qbnrg6bo2slipl0qd8n6u03dn9qt9no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqNcuJTXRLXV-jFqJfSp2GjzA_yowxMTc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
