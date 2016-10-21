@@ -1,5 +1,7 @@
 package barros.jeferson.aulafirebase;
 
+import android.app.ProgressDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,8 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("livro");
 
-    private EditText tituloEdit, autorEdit, pagindasEdit, anoEdit;
+    private EditText tituloEdit, autorEdit, paginasEdit, anoEdit;
     private Spinner spinner;
 
 
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         tituloEdit = (EditText) findViewById(R.id.tituloEdit);
         autorEdit = (EditText) findViewById(R.id.autorEdit);
-        pagindasEdit = (EditText) findViewById(R.id.paginasEdit);
+        paginasEdit = (EditText) findViewById(R.id.paginasEdit);
         anoEdit = (EditText) findViewById(R.id.anoEdit);
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -54,11 +59,43 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_neviar) {
             Log.d("Jeferson","menu clicado");
+            salvarLivro();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void salvarLivro() {
 
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        Book book = new Book();
+
+        book.setTitulo(tituloEdit.getText().toString());
+        book.setAutor(autorEdit.getText().toString());
+        book.setPaginas(Integer.valueOf(paginasEdit.getText().toString()));
+        book.setAno(Integer.valueOf(anoEdit.getText().toString()));
+        book.setCategoria((String) spinner.getSelectedItem());
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("livros");
+        reference.push().setValue(book).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
+                    limparEdit();
+                } else {
+                    progressDialog.dismiss();
+                }
+            }
+        });
+
+        progressDialog.setMessage("Eviando livro...");
+        progressDialog.show();
+    }
+
+    private void limparEdit(){
+        tituloEdit.setText("");
+        autorEdit.setText("");
+        paginasEdit.setText("");
+        anoEdit.setText("");
     }
 }
