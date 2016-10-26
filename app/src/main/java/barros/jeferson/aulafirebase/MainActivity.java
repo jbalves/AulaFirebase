@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_neviar) {
-            Log.d("Jeferson","menu clicado");
             salvarLivro();
         }
         return super.onOptionsItemSelected(item);
