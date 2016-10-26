@@ -21,7 +21,6 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         recuperarDadosFirebase();
-        Log.d("Jeferson","passou no onCreate completo");
     }
 
     private void criarAdapter(ArrayList<Book> lista) {
