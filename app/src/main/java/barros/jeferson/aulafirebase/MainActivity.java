@@ -1,18 +1,16 @@
 package barros.jeferson.aulafirebase;
 
-import android.*;
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
@@ -21,13 +19,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.oceanbrasil.libocean.Ocean;
 import com.oceanbrasil.libocean.control.glide.GlideRequest;
 import com.oceanbrasil.libocean.control.glide.ImageDelegate;
@@ -99,31 +96,36 @@ public class MainActivity extends AppCompatActivity implements ImageDelegate.Byt
     }
 
     private void salvarLivro() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://aula-firebase.appspot.com").child("livrosImagens").child(caminhoDaImagem.getName());
+        storageRef.putBytes(bytesDaImagem);
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+//        Book book = new Book();
+//
+//        book.setTitulo(tituloEdit.getText().toString());
+//        book.setAutor(autorEdit.getText().toString());
+//        book.setPaginas(Integer.valueOf(paginasEdit.getText().toString()));
+//        book.setAno(Integer.valueOf(anoEdit.getText().toString()));
+//        book.setCategoria((String) spinner.getSelectedItem());
+//
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("livros");
+//        reference.push().setValue(book).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    progressDialog.dismiss();
+//                    limparEdit();
+//                } else {
+//                    progressDialog.dismiss();
+//                }
+//            }
+//        });
+//
+//        progressDialog.setMessage("Eviando livro...");
+//        progressDialog.show();
 
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        Book book = new Book();
 
-        book.setTitulo(tituloEdit.getText().toString());
-        book.setAutor(autorEdit.getText().toString());
-        book.setPaginas(Integer.valueOf(paginasEdit.getText().toString()));
-        book.setAno(Integer.valueOf(anoEdit.getText().toString()));
-        book.setCategoria((String) spinner.getSelectedItem());
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("livros");
-        reference.push().setValue(book).addOnCompleteListener(this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    progressDialog.dismiss();
-                    limparEdit();
-                } else {
-                    progressDialog.dismiss();
-                }
-            }
-        });
-
-        progressDialog.setMessage("Eviando livro...");
-        progressDialog.show();
     }
 
     private void limparEdit(){
