@@ -2,6 +2,8 @@ package barros.jeferson.aulafirebase;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +21,14 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         recuperarDadosFirebase();
+        Log.d("Jeferson","passou no onCreate completo");
+    }
+
+    private void criarAdapter(ArrayList<Book> lista) {
+        MyAdapter adapter = new MyAdapter(this,lista);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lista_recyclerview);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     /**
@@ -34,6 +44,7 @@ public class ListActivity extends AppCompatActivity {
                     //Log.d("Jeferson",book.getAutor());
                     mArrayList.add(book);
                 }
+                criarAdapter(mArrayList);
             }
 
             @Override
