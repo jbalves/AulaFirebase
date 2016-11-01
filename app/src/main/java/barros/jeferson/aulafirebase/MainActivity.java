@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -96,10 +98,14 @@ public class MainActivity extends AppCompatActivity implements ImageDelegate.Byt
     }
 
     private void salvarLivro() {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
+        //FirebaseStorage storage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://aula-firebase.appspot.com").child("livrosImagens").child(caminhoDaImagem.getName());
-        storageRef.putBytes(bytesDaImagem);
+        //StorageReference storageRef = storage.getReferenceFromUrl("gs://aula-firebase.appspot.com").child("livrosImagens").child(caminhoDaImagem.getName());
+        //storageRef.putBytes(bytesDaImagem);
+
+        FirebaseCrash.report(new Exception("My first Android non-fatal error"));
+
+
 //        final ProgressDialog progressDialog = new ProgressDialog(this);
 //        Book book = new Book();
 //
